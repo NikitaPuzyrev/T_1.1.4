@@ -75,15 +75,6 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (Exception e) {
             transaction.rollback();
         }
-
-       /* } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }*/
-
-
     }
 
 
@@ -105,10 +96,9 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List getAllUsers() {
-        try {
-            Session session = HibernateUtil.
-                    getSessionFactory().
-                    openSession();
+        try (Session session = HibernateUtil.
+                getSessionFactory().
+                openSession()) {
 
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
@@ -117,8 +107,6 @@ public class UserDaoHibernateImpl implements UserDao {
             Query query = session.createQuery(criteriaQuery);
             List listUser = query.getResultList();
             session.close();
-
-            System.out.println(listUser);
             return listUser;
         } catch (Exception e) {
             return null;
