@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public void removeUserById(long id) throws SQLException {
         userDao.removeUserById(id);
     }
-    @Transactional
+
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
